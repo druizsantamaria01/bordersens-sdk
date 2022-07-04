@@ -2,6 +2,8 @@ import model.ProvisioningStatus;
 import services.IoTConnectionDeviceService;
 import services.impl.IoTConnectionDeviceServiceImpl;
 
+import java.io.File;
+import java.net.URL;
 import java.nio.file.Paths;
 
 
@@ -12,6 +14,8 @@ public class DoRegisterDevice {
         IoTConnectionDeviceService rds  = new IoTConnectionDeviceServiceImpl(idScope,globalEndpoint);
         try
         {
+            //URL folderURL = SendMessage.class.getClassLoader().getResource("certificates");
+            //File folder = new File(folderURL.getFile());
             String certificatesPath = "C:\\Users\\danie\\repositorios\\BorderSens\\create-certificates\\azure-iot-sdk-c\\tools\\CACertificates";
             String publicCertificate = certificatesPath + "\\device-1-bs-public.pem";//"/new-device-01.cert.pem";
             String privateCertificate = certificatesPath + "\\device-1-bs-private.pem";//"/new-device-01.key.pem";
