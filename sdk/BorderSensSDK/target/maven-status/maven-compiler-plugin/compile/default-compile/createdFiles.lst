@@ -1,0 +1,15 @@
+model\IoTHubDeviceConectionStatus.class
+model\IoTHubMessage.class
+services\impl\IoTMessagesHandlerServiceImpl$2.class
+utils\Utils.class
+listeners\IoTHubMessageListener.class
+services\impl\IoTMessagesHandlerServiceImpl$1.class
+listeners\IotHubConnectionStatusChangeCallbackListener.class
+services\impl\IoTMessagesHandlerServiceImpl.class
+model\Counter.class
+services\impl\IoTConnectionDeviceServiceImpl.class
+model\ProvisioningStatus.class
+model\SecurityProviderX509Cert.class
+services\impl\IoTConnectionDeviceServiceImpl$1.class
+services\IoTConnectionDeviceService.class
+services\IoTMessagesHandlerService.class

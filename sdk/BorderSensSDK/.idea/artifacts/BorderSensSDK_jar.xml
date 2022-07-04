@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BorderSensSDK:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BorderSensSDK_jar</output-path>
+    <root id="archive" name="BorderSensSDK.jar">
+      <element id="module-output" name="BorderSensSDK" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/sdk/iot/provisioning/security/security-provider-preview/1.0.1/security-provider-preview-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcpkix-jdk15on/1.61/bcpkix-jdk15on-1.61.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.7.5/slf4j-simple-1.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/eclipse/paho/org.eclipse.paho.client.mqttv3/1.2.2/org.eclipse.paho.client.mqttv3-1.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/sdk/iot/iot-deps-preview/1.0.1/iot-deps-preview-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/sdk/iot/provisioning/provisioning-device-client-preview/1.0.1/provisioning-device-client-preview-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20220320/json-20220320.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/sdk/iot/iot-device-client/2.0.3/iot-device-client-2.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/qpid/proton-j/0.33.10/proton-j-0.33.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcmail-jdk15on/1.61/bcmail-jdk15on-1.61.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/qpid-proton-j-extensions/1.2.3/qpid-proton-j-extensions-1.2.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk15on/1.61/bcprov-jdk15on-1.61.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/sdk/iot/provisioning/security/security-provider/2.0.0/security-provider-2.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/azure/sdk/iot/iot-deps/2.0.0-preview-001/iot-deps-2.0.0-preview-001.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.14/commons-codec-1.14.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: com.microsoft.azure.sdk.iot:iot-device-client:2.0.3" />
+    </root>
+  </artifact>
+</component>
