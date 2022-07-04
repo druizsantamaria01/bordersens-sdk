@@ -12,7 +12,7 @@ En el presente repositorio, podemos encontrar el siguiente contenido:
 
 Los servicios Azure siguen el esquema propuesto en la arquitectura
 
-![](.\img\current_architecture.drawio.png)
+![](./img/current_architecture.drawio.png)
 
 Todos los servicios descritos para la plataforma bordersens, están desplegados en Azure, dentro del grupo de recursos **BorderSensPlarform**.
 
@@ -23,11 +23,11 @@ Se ha creado el siguiente usuario, para poder acceder a los mismos:
 
 Para acceder a los servicios creados para el proyecto BorderSens, tenemos que acceder al grupo de recursos Bordersens
 
-![](.\img\grupo_recursos.png)
+![](./img/grupo_recursos.png)
 
 Y dentro veremos todos los recursos de este proyecto, que en el momento de la redacción de este documento, son los siguientes (aunque evolucionarán al menos con la construcción de la capa de IA)
 
-![](.\img\services.jpg)
+![](./img/services.jpg)
 
 A continuación se describirán brevemente los servicios Azure y  su rol dentro de la plataforma para dar contexto
 
