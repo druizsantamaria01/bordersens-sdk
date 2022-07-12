@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="BorderSensSDK">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../BorderSensSDK/out/artifacts/BorderSensSDK_jar/BorderSensSDK.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
