@@ -27,12 +27,12 @@ public class SendMessage {
         Semaphore mutex = new Semaphore(1);
         try
         {
-            String certificatesPath = "C:\\Users\\danie\\repositorios\\BorderSens\\create-certificates\\azure-iot-sdk-c\\tools\\CACertificates";
+            String certificatesPath = "C:\\Users\\druiz\\repositorios\\BorderSens\\bordersens-sdk\\generación de certificados\\certificates";
             String publicCertificate = certificatesPath + "\\device-1-bs-public.pem";//"/new-device-01.cert.pem";
             String privateCertificate = certificatesPath + "\\device-1-bs-private.pem";//"/new-device-01.key.pem";
             SecurityProvider securityProvider = IoTConnectionDeviceServiceImpl.getSecurityProviderX509(publicCertificate,privateCertificate);
 
-            JSONObject jMessage = new JSONObject(getRandomSample());
+            JSONObject jMessage = new JSONObject(getRandomSample("samples-6"));
             jMessage.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss").format(new Date()));
             jMessage.put("value", UUID.randomUUID().toString());
             jMessage.put("sensor", idDevice);
@@ -49,7 +49,7 @@ public class SendMessage {
                 @Override
                 public void onMessageSent(Message sentMessage, IotHubClientException clientException, Object callbackContext)
                 {
-                    System.out.println("Message sent!");
+                    System.out.println("Message sent!: \n\t" +new String(sentMessage.getBytes(), Message.DEFAULT_IOTHUB_MESSAGE_CHARSET));
                     send[0] = true;
                     mutex.release();
 
@@ -69,8 +69,8 @@ public class SendMessage {
         return random.nextInt(max - min) + min;
     }
 
-    public static String getRandomSample() {
-        URL folderURL = SendMessage.class.getClassLoader().getResource("samples");
+    public static String getRandomSample(String samplesFolder) {
+        URL folderURL = SendMessage.class.getClassLoader().getResource(samplesFolder);
         File folder = new File(folderURL.getFile());
         File[] listOfFiles = folder.listFiles();
         boolean isSelected = false;
