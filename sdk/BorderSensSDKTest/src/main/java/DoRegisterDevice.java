@@ -16,10 +16,10 @@ public class DoRegisterDevice {
         {
             //URL folderURL = SendMessage.class.getClassLoader().getResource("certificates");
             //File folder = new File(folderURL.getFile());
-            String certificatesPath = "C:\\Users\\danie\\repositorios\\BorderSens\\create-certificates\\azure-iot-sdk-c\\tools\\CACertificates";
-            String publicCertificate = certificatesPath + "\\device-1-bs-public.pem";//"/new-device-01.cert.pem";
-            String privateCertificate = certificatesPath + "\\device-1-bs-private.pem";//"/new-device-01.key.pem";
-            String intermediateCertificate = certificatesPath + "\\Intermediate1-bs-group.pem";//"/azure-iot-test-only.intermediate.cert.pem";
+            String certificatesPath = "C:\\Users\\druiz\\repositorios\\BorderSens\\bordersens-sdk\\Certificates";
+            String publicCertificate = certificatesPath + "\\device-2a-bs-public.pem";//"/new-device-01.cert.pem";
+            String privateCertificate = certificatesPath + "\\device-2a-bs-private.pem";//"/new-device-01.key.pem";
+            String intermediateCertificate = certificatesPath + "\\Intermediate1-bs-group-2.pem";//"/azure-iot-test-only.intermediate.cert.pem";
             ProvisioningStatus provisioningStatus = rds.registerDeviceWithIntermediate(publicCertificate,privateCertificate,intermediateCertificate);
             if (provisioningStatus!=null && provisioningStatus.isProvisioned()) {
                 System.out.println("Registered device");

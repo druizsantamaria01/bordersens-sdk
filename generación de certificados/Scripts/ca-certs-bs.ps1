@@ -53,6 +53,8 @@ function Test-CACertNotInstalledAlready()
 
     }
 
+    Write-Host($certInstalled)
+
     if ($NULL -ne $certInstalled)
     {
         $nl = [Environment]::NewLine
