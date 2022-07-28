@@ -7,6 +7,7 @@ import services.impl.IoTConnectionDeviceServiceImpl;
 import services.impl.IoTMessagesHandlerServiceImpl;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,24 +16,25 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 
 public class SendMessage {
     public static void main(String[] args) {
         String iothubUri = "bs-iothub-service.azure-devices.net";
-        String idDevice = "device-1-bs";
+        String idDevice = "device-2a-bs";
         Semaphore mutex = new Semaphore(1);
         try
         {
-            String certificatesPath = "C:\\Users\\druiz\\repositorios\\BorderSens\\bordersens-sdk\\generación de certificados\\certificates";
-            String publicCertificate = certificatesPath + "\\device-1-bs-public.pem";//"/new-device-01.cert.pem";
-            String privateCertificate = certificatesPath + "\\device-1-bs-private.pem";//"/new-device-01.key.pem";
+            String certificatesPath = "C:\\Users\\druiz\\repositorios\\BorderSens\\bordersens-sdk\\Certificates";
+            String publicCertificate = certificatesPath + "\\device-2a-bs-public.pem";//"/new-device-01.cert.pem";
+            String privateCertificate = certificatesPath + "\\device-2a-bs-private.pem";//"/new-device-01.key.pem";
             SecurityProvider securityProvider = IoTConnectionDeviceServiceImpl.getSecurityProviderX509(publicCertificate,privateCertificate);
 
-            JSONObject jMessage = new JSONObject(getRandomSample("samples-6"));
+            // JSONObject jMessage = new JSONObject(getRandomSample("samples-6"));
+
+            JSONObject jMessage = new JSONObject(getRandomSampleFiltered("samples-6","REAL_SAMPLE"));
             jMessage.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss").format(new Date()));
             jMessage.put("value", UUID.randomUUID().toString());
             jMessage.put("sensor", idDevice);
@@ -77,6 +79,42 @@ public class SendMessage {
         while (!isSelected) {
             int fileIndex = getRandomInt(0, listOfFiles.length);
             File file = listOfFiles[fileIndex];
+            if (file != null && file.isFile()) {
+                isSelected = true;
+                FileReader reader = null;
+                String content = null;
+                try {
+                    reader = new FileReader(file);
+                    char[] chars = new char[(int) file.length()];
+                    reader.read(chars);
+                    content = new String(chars);
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if(reader != null){
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                return content;
+            }
+        }
+        return null;
+    }
+
+    public static String getRandomSampleFiltered(String samplesFolder,String filterName) {
+        URL folderURL = SendMessage.class.getClassLoader().getResource(samplesFolder);
+        File folder = new File(folderURL.getFile());
+        File[] listOfFiles = folder.listFiles();
+        List<File> lOfFilesFiltered = Arrays.asList(listOfFiles).stream().filter(f -> f.getName().toLowerCase().contains(filterName.toLowerCase())).collect(Collectors.toList());
+        boolean isSelected = false;
+        while (!isSelected) {
+            int fileIndex = getRandomInt(0, lOfFilesFiltered.size());
+            File file = lOfFilesFiltered.get(fileIndex);
             if (file != null && file.isFile()) {
                 isSelected = true;
                 FileReader reader = null;

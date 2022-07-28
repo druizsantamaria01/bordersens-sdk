@@ -1,0 +1,19 @@
+
+>
+java:S1148["#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+L
+java:S1905,"1Remove this unnecessary cast to "ActionListener".(±—åÅùÿÿÿÿ
+W
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(±Ğü¾
+S	java:S106;"9Replace this use of System.out or System.err by a logger.(Ø ÏÇøÿÿÿÿ
+E
+java:S2093T"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+3
+java:S2119D"Save and re-use this "Random".(¼İÅf
+D
+java:S2140l")Use "java.util.Random.nextInt()" instead.(¶ëÂñøÿÿÿÿ
+>
+java:S1148a"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+>
+java:S1148?"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+N	java:S1064"9Replace this use of System.out or System.err by a logger.(öì¡
