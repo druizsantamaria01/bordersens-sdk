@@ -1,0 +1,6 @@
+services\impl\IoTMessagesHandlerServiceImplTest.class
+services\impl\IoTMessagesHandlerServiceImplTest$IotHubConnectionStatusChangeCallbackLogger.class
+services\impl\IoTMessagesHandlerServiceImplTest$Counter.class
+services\impl\IoTConnectionDeviceServiceImplTest.class
+services\impl\IoTMessagesHandlerServiceImplTest$1.class
+services\impl\IoTMessagesHandlerServiceImplTest$MessageCallbackMqtt.class

@@ -6,10 +6,7 @@ import java.io.*;
 import java.net.URL;
 
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.io.FileUtils;
 
@@ -37,13 +34,32 @@ public class GenerateSamplesNArrays {
         JSONObject jSampleNArray = new JSONObject(jSample.toString());
         JSONArray jNodes = new JSONArray();
         int l = jSample.getJSONArray("nodes").length();
+        double randomDiff = randDouble(-10, 10);
         for (int i = 0 ; i < nodes ; i++) {
             if (i <= l-1) {
-                jNodes.put(jSample.getJSONArray("nodes").get(i));
+                JSONObject jNode = (JSONObject) jSample.getJSONArray("nodes").get(i);
+                String nodeName = jNode.getJSONObject("Node").getJSONArray("curves").getJSONObject(0).getString("name") + "_" + i;
+                jNode.getJSONObject("Node").getJSONArray("curves").getJSONObject(0).put("name",nodeName);
+                jNodes.put(jNode);
             } else {
                 int ind = i%l;
                 JSONObject jNode = jSample.getJSONArray("nodes").getJSONObject(ind);
                 JSONObject jNodeAux = new JSONObject(jNode.toString());
+                String currentAux = jNode.getJSONObject("Node").getJSONArray("curves").getJSONObject(0).getJSONObject("points").getString("current");
+                List<String> generatedCurrent = new ArrayList<>();
+                for (String c : currentAux.split(",")) {
+                    double v = 0;
+                    try {
+                        v = Double.valueOf(c);
+                    } catch (Exception e) {
+                    }
+                    double gc = v + (v*randomDiff)/100;
+                    gc = gc + (gc*randDouble(-2, 2))/100;
+                    generatedCurrent.add(String.format(Locale.US,"%.8f", gc));
+                }
+                String nodeName = jNodeAux.getJSONObject("Node").getJSONArray("curves").getJSONObject(0).getString("name").replaceAll("_[0-9]+$","_"+i);
+                jNodeAux.getJSONObject("Node").getJSONArray("curves").getJSONObject(0).put("name",nodeName);
+                jNodeAux.getJSONObject("Node").getJSONArray("curves").getJSONObject(0).getJSONObject("points").put("current",String.join(",",generatedCurrent));
                 jNodeAux.put("id",i);
                 jNodes.put(jNodeAux);
             }
@@ -109,5 +125,11 @@ public class GenerateSamplesNArrays {
         }
     }
 
+    public static double randDouble(int min, int max) {
+
+        Random r = new Random();
+        double randomValue = min + (max - min) * r.nextDouble();
+        return randomValue;
+    }
 
 }

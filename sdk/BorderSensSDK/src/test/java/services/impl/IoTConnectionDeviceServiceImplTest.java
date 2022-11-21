@@ -7,7 +7,7 @@ import services.IoTConnectionDeviceService;
 import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IoTConnectionDeviceServiceImplTest {
+public class IoTConnectionDeviceServiceImplTest {
 
     @Test
     void getInstance()

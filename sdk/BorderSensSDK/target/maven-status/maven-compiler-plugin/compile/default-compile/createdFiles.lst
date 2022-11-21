@@ -1,8 +1,10 @@
+services\impl\IoTMessagesHandlerServiceImpl$3.class
 model\IoTHubDeviceConectionStatus.class
 model\IoTHubMessage.class
 services\impl\IoTMessagesHandlerServiceImpl$2.class
 utils\Utils.class
 listeners\IoTHubMessageListener.class
+services\impl\IoTMessagesHandlerServiceImpl$4.class
 services\impl\IoTMessagesHandlerServiceImpl$1.class
 listeners\IotHubConnectionStatusChangeCallbackListener.class
 services\impl\IoTMessagesHandlerServiceImpl.class

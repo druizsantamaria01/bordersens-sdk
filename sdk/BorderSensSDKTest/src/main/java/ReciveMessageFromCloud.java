@@ -3,6 +3,7 @@ import com.microsoft.azure.sdk.iot.device.exceptions.IotHubClientException;
 import com.microsoft.azure.sdk.iot.device.transport.IotHubConnectionStatus;
 import com.microsoft.azure.sdk.iot.provisioning.security.SecurityProvider;
 import model.Counter;
+import org.apache.commons.io.file.Counters;
 import services.impl.IoTConnectionDeviceServiceImpl;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class ReciveMessageFromCloud {
     {
         public IotHubMessageResult onCloudToDeviceMessageReceived(Message msg, Object context)
         {
-            Counter counter = (Counter) context;
+            Counters.Counter counter = (Counters.Counter) context;
             System.out.println(
                     "Received message " + counter.toString()
                             + " with content: " + new String(msg.getBytes(), Message.DEFAULT_IOTHUB_MESSAGE_CHARSET));
@@ -72,14 +73,14 @@ public class ReciveMessageFromCloud {
 
     public static void main(String[] args) {
         String iothubUri = "bs-iothub-service.azure-devices.net";
-        String idDevice = "device-1-bs";
+        String idDevice = "bs-amsterdam-device-1";
         DeviceClient deviceClient = null;
         try
         {
             // Rutas a los certificados del dispositivo
-            String certificatesPath = "C:\\Users\\danie\\repositorios\\BorderSens\\create-certificates\\azure-iot-sdk-c\\tools\\CACertificates";
-            String publicCertificate = certificatesPath + "\\device-1-bs-public.pem";//"/new-device-01.cert.pem";
-            String privateCertificate = certificatesPath + "\\device-1-bs-private.pem";//"/new-device-01.key.pem";
+            String certificatesPath = "C:\\Users\\druiz\\repositorios\\BorderSens\\Certificados";
+            String publicCertificate = certificatesPath + "\\bs-amsterdam-device-1-public.pem";//"/new-device-01.cert.pem";
+            String privateCertificate = certificatesPath + "\\bs-amsterdam-device-1-private.pem";//"/new-device-01.key.pem";
             SecurityProvider securityProvider = IoTConnectionDeviceServiceImpl.getSecurityProviderX509(publicCertificate,privateCertificate); // Security Provider
             deviceClient = new DeviceClient(iothubUri, idDevice, securityProvider, IotHubClientProtocol.MQTT);
 

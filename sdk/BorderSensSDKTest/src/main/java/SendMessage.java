@@ -23,19 +23,22 @@ import java.util.stream.Collectors;
 public class SendMessage {
     public static void main(String[] args) {
         String iothubUri = "bs-iothub-service.azure-devices.net";
-        String idDevice = "device-2a-bs";
+        String idDevice = "device-1-bs";
         Semaphore mutex = new Semaphore(1);
         try
         {
             String certificatesPath = "C:\\Users\\druiz\\repositorios\\BorderSens\\bordersens-sdk\\Certificates";
-            String publicCertificate = certificatesPath + "\\device-2a-bs-public.pem";//"/new-device-01.cert.pem";
-            String privateCertificate = certificatesPath + "\\device-2a-bs-private.pem";//"/new-device-01.key.pem";
+            String publicCertificate = certificatesPath + "\\"+idDevice+"-public.pem";//"/new-device-01.cert.pem";
+            String privateCertificate = certificatesPath + "\\"+idDevice+"-private.pem";//"/new-device-01.key.pem";
+
+            //String publicCertificate = certificatesPath + "\\device-2a-bs-public.pem";//"/new-device-01.cert.pem";
+            //String privateCertificate = certificatesPath + "\\device-2a-bs-private.pem";//"/new-device-01.key.pem";
             SecurityProvider securityProvider = IoTConnectionDeviceServiceImpl.getSecurityProviderX509(publicCertificate,privateCertificate);
 
             // JSONObject jMessage = new JSONObject(getRandomSample("samples-6"));
 
-            JSONObject jMessage = new JSONObject(getRandomSampleFiltered("samples-6","REAL_SAMPLE"));
-            jMessage.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss").format(new Date()));
+            JSONObject jMessage = new JSONObject(getRandomSampleFiltered("samples-6","REAL_SAMPLE_3"));
+            jMessage.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss Z").format(new Date()));
             jMessage.put("value", UUID.randomUUID().toString());
             jMessage.put("sensor", idDevice);
             IoTMessagesHandlerServiceImpl messagesHandlerService = IoTMessagesHandlerServiceImpl.getInstance();
