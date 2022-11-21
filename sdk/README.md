@@ -415,5 +415,42 @@ public class ReciveMessageFromCloud {
 
 Para probar el envío de mensajes, se puede usar el servicio [Azure IoT Explorer](https://docs.microsoft.com/es-es/azure/iot-fundamentals/howto-use-iot-explorer).
 
+### Envío de mensajes sincronos hacia la plataforma.
 
+Este caso de uso, este método de la SDK, permite el envio de mensajes hacia la plataforma, y la gestión de la respuesta, de forma que desde el punto de vista del serivicio que lo invoca, se comporta como un servicio **sincrono**.
+
+
+
+Para mejorar la comprensión de las acciones de la SDK, y abstraerlo del resto del código, a continuación se enumeraran las acciones mas significativas:
+
+- **Autentificación** del dispositivo en la plataforma
+
+  ```
+    /*
+     * Llamada al método estatico getSecurityProviderX509 del servicio IoTConnectionDeviceServiceImpl, con los siguientes párametros:
+     * - publicCertificate: Ruta al certificado público del dispositivo
+     * - privateCertificate: Ruta al certificado privado del dispositivo
+     */
+    SecurityProvider securityProvider = 			IoTConnectionDeviceServiceImpl.getSecurityProviderX509(publicCertificate,privateCertificate); // Llamada para autentificacion
+  ```
+
+  
+
+  
+
+- Obtención de instancia del servicio **IoTMessagesHandlerServiceImpl**, para enviar mensajes
+
+  ```
+  IoTMessagesHandlerServiceImpl messagesHandlerService = IoTMessagesHandlerServiceImpl.getInstance();
+  ```
+
+  
+
+- Envío de mensaje y recepción sincrona
+
+  ```
+  Map<String,Object> response = messagesHandlerService.sendSyncMessage(securityProvider, iothubUri, idDevice, jMessage.toString(), 40000);
+  ```
+  
+  
 
