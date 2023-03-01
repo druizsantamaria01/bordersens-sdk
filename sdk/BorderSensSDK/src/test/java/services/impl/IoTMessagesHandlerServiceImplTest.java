@@ -27,13 +27,13 @@ public class IoTMessagesHandlerServiceImplTest {
     void sendMessageMQTT()
     {
         String iothubUri = "bs-iothub-service.azure-devices.net";
-        String idDevice = "device-1-bs";
+        String idDevice = "device-2-bs";
         Semaphore mutex = new Semaphore(1);
         try
         {
             String certificatesPath = Paths.get(getClass().getClassLoader().getResource("./certificates").toURI()).toAbsolutePath().toString();
-            String publicCertificate = certificatesPath + "\\device-1-bs-public.pem";//"/new-device-01.cert.pem";
-            String privateCertificate = certificatesPath + "\\device-1-bs-private.pem";//"/new-device-01.key.pem";
+            String publicCertificate = certificatesPath + "\\device-2-bs-public.pem";//"/new-device-01.cert.pem";
+            String privateCertificate = certificatesPath + "\\device-2-bs-private.pem";//"/new-device-01.key.pem";
             SecurityProvider securityProvider = IoTConnectionDeviceServiceImpl.getSecurityProviderX509(publicCertificate,privateCertificate);
             assertTrue(securityProvider!=null);
 

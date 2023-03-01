@@ -164,7 +164,7 @@ public class IoTMessagesHandlerServiceImpl implements IoTMessagesHandlerService
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Timer timerSend = new Timer(4000,
+        Timer timerSend = new Timer(millisecondsToTimeout,
                 (ActionListener) e -> {
             response.set(generateErrorResponse(idDevice,idSample,new TimeoutException("Timeout on sent to IoT Hub"), "Timeout occurred when sending the message to IoTHub"));
             mutexSend.release();

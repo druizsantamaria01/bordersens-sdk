@@ -6,7 +6,7 @@ import com.microsoft.azure.sdk.iot.provisioning.security.SecurityProvider;
 import model.ProvisioningStatus;
 import model.SecurityProviderX509Cert;
 import services.IoTConnectionDeviceService;
-import utils.Utils;
+import sdkutils.Utilities;
 
 import java.io.IOException;
 import java.security.Key;
@@ -33,8 +33,10 @@ public class IoTConnectionDeviceServiceImpl implements IoTConnectionDeviceServic
 
     public IoTConnectionDeviceServiceImpl()
     {
+        this.idScope = Utilities.readProperty("iothub.dps.idScope","0ne005D00DC");
+        this.globalEndpoint = Utilities.readProperty("iothub.dps.globalendpoint","bs-iothub-service.azure-devices.net");
         PROVISIONING_DEVICE_CLIENT_TRANSPORT_PROTOCOL= ProvisioningDeviceClientTransportProtocol.HTTPS;
-        MAX_TIME_TO_WAIT_FOR_REGISTRATION = 10000;
+        MAX_TIME_TO_WAIT_FOR_REGISTRATION = Integer.parseInt(Utilities.readProperty("iothub.dps.maxtimeout","10000"));
     }
 
     @Override
@@ -118,16 +120,16 @@ public class IoTConnectionDeviceServiceImpl implements IoTConnectionDeviceServic
 
     public static SecurityProvider getSecurityProviderX509(String publicDeviceCertificatePath, String privateDeviceCertificatePath, String publicIntermediateCertificatePath) throws IOException, CertificateException
     {
-        String leafPublicPem = Utils.readCertificateFromPath(publicDeviceCertificatePath);
-        String leafPrivateKeyPem = Utils.readCertificateFromPath(privateDeviceCertificatePath);
+        String leafPublicPem = Utilities.readCertificateFromPath(publicDeviceCertificatePath);
+        String leafPrivateKeyPem = Utilities.readCertificateFromPath(privateDeviceCertificatePath);
 
-        X509Certificate leafPublicCert = Utils.parsePublicKeyCertificate(leafPublicPem);
-        Key leafPrivateKey = Utils.parsePrivateKey(leafPrivateKeyPem);
+        X509Certificate leafPublicCert = Utilities.parsePublicKeyCertificate(leafPublicPem);
+        Key leafPrivateKey = Utilities.parsePrivateKey(leafPrivateKeyPem);
         SecurityProvider securityProviderX509;
         if (publicIntermediateCertificatePath!=null)
         {
-            String intermediateKey = Utils.readCertificateFromPath(publicIntermediateCertificatePath);
-            X509Certificate intermediatePublicCert = Utils.parsePublicKeyCertificate(intermediateKey);
+            String intermediateKey = Utilities.readCertificateFromPath(publicIntermediateCertificatePath);
+            X509Certificate intermediatePublicCert = Utilities.parsePublicKeyCertificate(intermediateKey);
             securityProviderX509 = new SecurityProviderX509Cert(leafPublicCert, leafPrivateKey, intermediatePublicCert);
         } else {
             securityProviderX509 = new SecurityProviderX509Cert(leafPublicCert, leafPrivateKey, new ArrayList());
@@ -137,11 +139,11 @@ public class IoTConnectionDeviceServiceImpl implements IoTConnectionDeviceServic
 
     public static SecurityProvider getSecurityProviderX509(String publicDeviceCertificatePath, String privateDeviceCertificatePath) throws IOException, CertificateException
     {
-        String leafPublicPem = Utils.readCertificateFromPath(publicDeviceCertificatePath);
-        String leafPrivateKeyPem = Utils.readCertificateFromPath(privateDeviceCertificatePath);
+        String leafPublicPem = Utilities.readCertificateFromPath(publicDeviceCertificatePath);
+        String leafPrivateKeyPem = Utilities.readCertificateFromPath(privateDeviceCertificatePath);
 
-        X509Certificate leafPublicCert = Utils.parsePublicKeyCertificate(leafPublicPem);
-        Key leafPrivateKey = Utils.parsePrivateKey(leafPrivateKeyPem);
+        X509Certificate leafPublicCert = Utilities.parsePublicKeyCertificate(leafPublicPem);
+        Key leafPrivateKey = Utilities.parsePrivateKey(leafPrivateKeyPem);
         SecurityProvider securityProviderX509= new SecurityProviderX509Cert(leafPublicCert, leafPrivateKey, new ArrayList());
         return securityProviderX509;
     }
