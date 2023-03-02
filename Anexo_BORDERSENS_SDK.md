@@ -37,7 +37,7 @@ Hay algunos **componentes** importantes de la SDK que es conveniente describir
     * Inferencia
     * Versiones de parámetros de etl
     * Versiones de modelos
-* **BorderSens Local Platform:** Es la plataforma en la nube (Azure). En este caso el flujo de llamadas,es siempre asíncrono, mediante colas de mensajes, dado que en este caso, es necesario garantizar concurrencia y escalabilidad, ya que su funcionalidad a de ser escalable a casi cualquier numero de dispositivos. Despliega en su interior los siguientes contenedores:
+* **BorderSens Azure Platform:** Es la plataforma en la nube (Azure). En este caso el flujo de llamadas,es siempre asíncrono, mediante colas de mensajes, dado que en este caso, es necesario garantizar concurrencia y escalabilidad, ya que su funcionalidad a de ser escalable a casi cualquier numero de dispositivos. Despliega en su interior los siguientes contenedores:
   * **Bordersens-etl:** Azure function desarrollada en Python, y desplegada ante un nuevo mensaje en el bus de datos, con la misión de procesar los datos en crudo enviados  por los dispositivos, chequear su integridad y transformarlos para que sean aptos para realizar la inferencia (corrección de línea base). 
   * **Bordersens-inference:** Azure function desarrollada en Python, y desplegada ante un nuevo mensaje en el bus de datos, realizar la inferencia, usando los datos procesados por Bordersens-etl y  la última versión de parámetros del modelo de inferencia. 
   * **Cosmos-db**: Es la base de datos maestra del proyecto Bordersens. En ella de almacenan:
