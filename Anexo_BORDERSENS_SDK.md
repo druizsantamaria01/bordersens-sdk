@@ -9,7 +9,7 @@ La arquitectura implementada puede verse en el siguiente esquema
 
 
 ![](https://i.ibb.co/kS1CSjm/architecture-implemented-online-offline.png)
-![Diagrama architectura con modos online y offline](https://git.izertis.com/izertisidi/border_tec/bordersens-sdk/-/tree/master/images/arquitectura-online-offline.png)
+![alt tag](https://git.izertis.com/izertisidi/border_tec/bordersens-sdk/-/tree/master/images/arquitectura-online-offline.png)
 
 
 Como puede apreciarse, hay 2 modos de funcionamiento:
