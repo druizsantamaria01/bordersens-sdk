@@ -205,6 +205,7 @@ public class BorderSensSDKService implements BorderSensSDK {
                     try {
                         Response response = client.newCall(request).execute();
                         if (response.code()!=200) {
+                            response.close();
                             return false;
                         }
                     } catch (IOException e) {
