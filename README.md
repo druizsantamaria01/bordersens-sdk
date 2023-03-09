@@ -12,5 +12,5 @@ Hemos diferenciado la documentación en 3 grandes bloques
 
 * [Directorio de certificados](/generación de certificados/certificates)
 * [BorderSens SDK](./sdk/BorderSensSDK): Proyecto Librería BorderSens SDK.
-* [JAR BorderSens SDK](./sdk/BorderSensSDK-2.0.0-jar-with-dependencies.jar): Jar de la librería.
+* [JAR BorderSens SDK](./sdk/BorderSensSDK-2.0.1-jar-with-dependencies.jar): Jar de la librería.
 * [BorderSens SDK Test](./sdk/BorderSensSDKTest): Proyecto de ejemplo que usa la librería BorderSens SDK

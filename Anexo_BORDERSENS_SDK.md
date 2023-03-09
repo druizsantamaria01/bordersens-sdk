@@ -90,7 +90,7 @@ Podemos instalarlo fácilmente siguiendo los pasos enumerados en la [documentaci
 
 La librería es bastante autonoma, es decir realizara las funciones requeridas con casi ninguna interación del usuario.
 
-Podemos descargar el jar de la librería en el siguiente [enlace](./sdk/BorderSensSDK-1.0.0-jar-with-dependencies.jar).
+Podemos descargar el jar de la librería en el siguiente [enlace](./sdk/BorderSensSDK-2.0.1-jar-with-dependencies.jar).
 
 **Es necesario que al menos en la primera inicialización de la librería esta disponga de conectividad**, ya que realizara acciones que la requieren como pro ejemplo, la descarga de imágenes docker.
 
