@@ -3,6 +3,7 @@ package services.impl;
 import com.google.gson.JsonObject;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.Container;
+import com.spotify.docker.client.messages.Image;
 import events.DockerContainerEvent;
 import events.InternetStateEvent;
 import model.*;
@@ -106,7 +107,8 @@ public class DockerContainerManagerImp {
                     dockerServiceImp.doRegistry(image.getDataContainerRepository());
                     if (isConnected) {
                         try {
-                            if (dockerServiceImp.checkIfImageContainerHasUpdated(image.getDataContainerRepository().getRepository(),image.getImageName())) {
+                            List<Image> images =  DockerServiceImp.getInstance().listAllImagesByTagAndVersion(image.getImageName(),image.getImageVersion());
+                            if (images.size() == 0 || dockerServiceImp.checkIfImageContainerHasUpdated(image.getDataContainerRepository().getRepository(),image.getImageName())) {
                                 dockerServiceImp.pullImage(image.getDataContainerRepository().getRepository(), imageName);
                                 container = dockerServiceImp.forceCleanContainerFromImageName(image.getDataContainerRepository().getRepository(), imageName, image.getContainerName(), image.getContainerPorts(), image.getHostPorts(),image.getVolumes(), image.getEnvironment(), image.getCmd(), image.getEntrypoint());
                             } else {

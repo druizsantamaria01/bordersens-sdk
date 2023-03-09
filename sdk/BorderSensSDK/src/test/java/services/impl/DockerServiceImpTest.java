@@ -102,7 +102,7 @@ class DockerServiceImpTest {
     @Test
     void listAllImagesByTagAndVersion() {
         try {
-            List<Image> images = DockerServiceImp.getInstance().listAllImagesByTagAndVersion("nginx","latesto");
+            List<Image> images = DockerServiceImp.getInstance().listAllImagesByTagAndVersion("bscontainerregistry.azurecr.io/mongo","latest");
             Assertions.assertTrue(true);
         } catch (DockerException e) {
             Assertions.assertTrue(false);

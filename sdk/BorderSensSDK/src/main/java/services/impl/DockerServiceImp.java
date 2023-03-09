@@ -437,15 +437,26 @@ public class DockerServiceImp implements DockerService {
 
     @Override
     public Volume createVolumeIfNotExist(String volumeName) throws DockerException, InterruptedException {
-        Volume v = dockerClient.inspectVolume(volumeName);
-        if (v!=null)
-            return v;
-        final Volume toCreate = Volume.builder()
-                .name(volumeName)
-                .driver("local")
-                .build();
-        final Volume created = dockerClient.createVolume(toCreate);
-        return created;
+        try {
+            Volume v = dockerClient.inspectVolume(volumeName);
+            if (v != null)
+                return v;
+            else {
+                final Volume toCreate = Volume.builder()
+                        .name(volumeName)
+                        .driver("local")
+                        .build();
+                final Volume created = dockerClient.createVolume(toCreate);
+                return created;
+            }
+        } catch (Exception e) {
+            final Volume toCreate = Volume.builder()
+                    .name(volumeName)
+                    .driver("local")
+                    .build();
+            final Volume created = dockerClient.createVolume(toCreate);
+            return created;
+        }
     }
 
     @Override
