@@ -50,7 +50,7 @@ public class LocalMassagesHandlerServiceImp implements LocalMassagesHandlerServi
             Response responseEtl = client.newCall(request).execute();
             if (responseEtl.code() == 200) {
                 JsonObject jETLData = new Gson().fromJson(responseEtl.body().string(),JsonObject.class);
-                if (jETLData.has("response")) {
+                if (jETLData.has("response") && jETLData.get("response").getAsJsonObject().has("status") && jETLData.get("response").getAsJsonObject().get("status").getAsString().toUpperCase().equals("OK")) {
                     JsonObject jETLResponse = jETLData.get("response").getAsJsonObject();
                     RequestBody bodyInference = RequestBody.create(mediaType,jETLResponse.toString());
                     Request requestInference = new Request.Builder()
@@ -72,6 +72,10 @@ public class LocalMassagesHandlerServiceImp implements LocalMassagesHandlerServi
                         Map<String,Object> errorMessage = buildResponseError(e, "INFERENCE","APIResponseError","Error: Fail in request to INFERENCE API in offline mode","");
                         finalResponse = buildResponseIfError(jMessage,errorMessage);
                     }
+                } else {
+                    JsonObject jErrorEtlData = gson.fromJson(jETLData.get("response_handler").toString(),JsonObject.class);
+                    Map<String, Object> response = gson.fromJson(jErrorEtlData.toString(), Map.class);
+                    finalResponse = response;
                 }
             } else { // Error API ETL
                 Map<String,Object> errorMessage = buildResponseError(null, "TRANSFORM","APIResponseError","Error: Fail in request to ETL API in offline mode","");
