@@ -53,7 +53,7 @@ public class CosmosDBServiceImp {
     }
 
     private boolean connectClient() {
-        if (!isConnected && this.connectivityMonitorService.isConected()) {
+        if (isConnected && this.connectivityMonitorService.isConected() && this.client == null) {
             try {
                 this.client = new CosmosClientBuilder()
                         .endpoint(Utilities.readProperty("cosmos.host", null))

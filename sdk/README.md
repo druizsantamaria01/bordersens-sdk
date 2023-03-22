@@ -5,7 +5,7 @@
 En el presente repositorio, podemos encontrar el siguiente contenido:
 
 - [BorderSensSDK](./BorderSensSDK): Proyecto java que contiene el código de la librería desarrollada para el contexto de uso en el proyecto BorderSens.
-- [BorderSensSDK-2.0.1-jar-with-dependencies.jar](./BorderSensSDK-2.0.1-jar-with-dependencies.jar): Librería [BorderSensSDK](./BorderSensSDK) compilada en forma de jar, para poder ser usada en otros proyectos java.
+- [BorderSensSDK-2.0.5-jar-with-dependencies.jar](./BorderSensSDK-2.0.5-jar-with-dependencies.jar): Librería [BorderSensSDK](./BorderSensSDK) compilada en forma de jar, para poder ser usada en otros proyectos java.
 - [BorderSensSDKTest](./BorderSensSDKTest): Proyecto de test que usa [BorderSensSDK-1.0.0-jar-with-dependencies.jar](./BorderSensSDK-2.0.1-jar-with-dependencies.jar) para interactuar con la librería y de esa forma servir como ejemplo de uso de la misma.
 
 ## Servicios de Azure

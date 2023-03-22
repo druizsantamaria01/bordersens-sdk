@@ -128,7 +128,7 @@ public class DataSynchronizationManagerImp implements DataSynchronizationManager
 
     private static Runnable doSynchronizationData(DataSynchronizationManagerImp parent) {
         return () ->{
-            if (!isDoingInference) {
+            if (!isDoingInference && parent.isConnected) {
                 JsonObject changes = new JsonObject();
                 changes.add("uploaded", new JsonObject());
                 changes.add("updated", new JsonObject());
@@ -142,15 +142,17 @@ public class DataSynchronizationManagerImp implements DataSynchronizationManager
                             JsonObject joItem = jItem.getAsJsonObject();
                             String _id = joItem.get("_id").getAsJsonObject().get("$oid").getAsString();
                             joItem.remove("_id");
-                            parent.cosmos.upsertItem(
+                            JsonArray rCosmos = parent.cosmos.upsertItem(
                                     parent.cosmosDatabase,
                                     dr.getOuterName(),
                                     ImmutableMap.of(dr.getOuterIdentifier(), jItem.getAsJsonObject().get(dr.getOuterIdentifier()).getAsString()),
                                     jItem.getAsJsonObject()
                             );
-                            parent.mongo.deleteItem(dr.getName(), _id);
-                            itemsChanged += 1;
-                            allChanges += 1;
+                            if (rCosmos!=null) {
+                                parent.mongo.deleteItem(dr.getName(), _id);
+                                itemsChanged += 1;
+                                allChanges += 1;
+                            }
                         }
                     }
                     changes.get("uploaded").getAsJsonObject().addProperty(dr.getName(), itemsChanged);
@@ -262,15 +264,17 @@ public class DataSynchronizationManagerImp implements DataSynchronizationManager
                         JsonObject joItem = jItem.getAsJsonObject();
                         String _id = joItem.get("_id").getAsJsonObject().get("$oid").getAsString();
                         joItem.remove("_id");
-                        cosmos.upsertItem(
+                        JsonArray rCosmos = cosmos.upsertItem(
                                 cosmosDatabase,
                                 dr.getOuterName(),
                                 ImmutableMap.of(dr.getOuterIdentifier(), jItem.getAsJsonObject().get(dr.getOuterIdentifier()).getAsString()),
                                 jItem.getAsJsonObject()
                         );
-                        mongo.deleteItem(dr.getName(),_id);
-                        itemsChanged += 1;
-                        allChanges += 1;
+                        if (rCosmos!=null) {
+                            mongo.deleteItem(dr.getName(), _id);
+                            itemsChanged += 1;
+                            allChanges += 1;
+                        }
                     }
                 }
                 changes.get("uploaded").getAsJsonObject().addProperty(dr.getName(), itemsChanged);

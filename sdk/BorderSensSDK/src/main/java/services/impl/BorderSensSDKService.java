@@ -24,10 +24,7 @@ import services.IoTMessagesHandlerService;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -86,7 +83,7 @@ public class BorderSensSDKService implements BorderSensSDK {
         this.dockerManager = DockerContainerManagerImp.getInstance(new DockerContainerEvent() {
             @Override
             public void onDockerStateChange(boolean isDockerRunning) {
-                // logger.log(Level.INFO, String.format("On docker state Change: %s",isDockerRunning));
+                logger.log(Level.INFO, String.format("On docker state Change: %s",isDockerRunning));
                 for (BorderSensSDKServiceEvents l : listeners) {
                     l.onDockerStateChange(isDockerRunning);
                 }
@@ -94,7 +91,7 @@ public class BorderSensSDKService implements BorderSensSDK {
 
             @Override
             public void onDockerContainerIsDeployed(String image, DeployContainerStatus status, ContainerStatus containerStatus) {
-                // logger.log(Level.INFO, String.format("On Image: %s has been deployed\nDeployContainerStatus: %s\nContainerStatus: %s",image, status.toString(),containerStatus.toString()));
+                logger.log(Level.INFO, String.format("On Image: %s has been deployed\nDeployContainerStatus: %s\nContainerStatus: %s",image, status.toString(),containerStatus.toString()));
                 for (BorderSensSDKServiceEvents l : listeners) {
                     l.onDockerContainerIsDeployed(image, status, containerStatus);
                 }
@@ -103,7 +100,7 @@ public class BorderSensSDKService implements BorderSensSDK {
         this.dataManager = DataSynchronizationManagerImp.getInstance(this.idDevice, new SynchronizeDataEvent() {
             @Override
             public void OnDataSynchronizedIsDone(JsonObject jReponse) {
-                // logger.log(Level.INFO, String.format("Synchronized data: %s is finished at ",jReponse.toString()));
+                logger.log(Level.INFO, String.format("Synchronized data: %s is finished at ",jReponse.toString()));
                 for (BorderSensSDKServiceEvents l : listeners) {
                     l.OnDataSynchronizedIsDone(jReponse);
                 }
@@ -114,6 +111,10 @@ public class BorderSensSDKService implements BorderSensSDK {
             @Override
             public void onChangeConnectionState(boolean conn) {
                 isConnected = conn;
+                if (isConnected) {
+                    logger.log(Level.INFO,"Device Connected");
+                    DataSynchronizationManagerImp.getInstance(idDevice).startSynchronization(Integer.parseInt(Utilities.readProperty("data.secondsToStartSynchronize", "60")), Integer.parseInt(Utilities.readProperty("data.secondsToSynchronize", "60")));
+                }
             }
         });
         this.isConnected = connectivityMonitorService.isConected();
@@ -189,9 +190,20 @@ public class BorderSensSDKService implements BorderSensSDK {
             logger.log(Level.INFO,String.format("Check complete, %d milliseconds",currentTime));
             this.dockerManager.checkStatus();
             this.dataManager.startSynchronization(Integer.parseInt(Utilities.readProperty("data.secondsToStartSynchronize", "60")), Integer.parseInt(Utilities.readProperty("data.secondsToSynchronize", "60")));
-            this.isInitialized = true;
+            this.isInitialized = false;
+            long startTime = new Date().getTime();
+            logger.log(Level.INFO,String.format("Checking microservices"));
+            while(!isInitialized) {
+                this.isInitialized = checkStatus();
+            }
+            logger.log(Level.INFO,String.format("Check complete in %d millisecons", new Date().getTime() - startTime ));
             for (BorderSensSDKServiceEvents l : listeners) {
                 l.OnBorderSensSDKServiceIsInitialized(dockerManager.isDockerManagerReady(), dataManager.isSynchronized());
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
